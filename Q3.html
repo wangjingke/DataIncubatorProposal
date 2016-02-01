@@ -63,7 +63,7 @@ img {
 <div id="header">
 <h1 class="title">Q3.R</h1>
 <h4 class="author"><em>jing</em></h4>
-<h4 class="date"><em>Mon Feb 1 03:54:09 2016</em></h4>
+<h4 class="date"><em>Mon Feb 1 04:41:30 2016</em></h4>
 </div>
 
 
@@ -186,8 +186,10 @@ lazipdem=merge(lazipdem, ActRest, by.x=&quot;ZIP&quot;, by.y=&quot;zipcode&quot;
 lazipdem$rest_pt=ifelse(is.na(lazipdem$rest_pt), 0, lazipdem$rest_pt)
 lazipdem$NewRest2015=ifelse(is.na(lazipdem$NewRest2015), 0, lazipdem$NewRest2015)
 
+# creating regressive correlation across adjacent regions
 rook=poly2nb(lazipdem, queen=FALSE)
 rook.w=nb2listw(rook)
+# Moran's I test
 moranRest.rook=moran.test(lazipdem$rest_pt, rook.w)
 moranRest.rook</code></pre>
 <pre><code>## 
@@ -264,6 +266,7 @@ lazipdem$hispanic_pt=ifelse(is.na(lazipdem$hispanic_pt),0, lazipdem$hispanic_pt)
 lazipdem$asian_pt=100*lazipdem$ASIAN/lazipdem$POP2010b
 lazipdem$asian_pt=ifelse(is.na(lazipdem$asian_pt),0, lazipdem$asian_pt)
 
+# auto regressive model
 queen=poly2nb(lazipdem, queen=TRUE)
 col.palette=colorRampPalette(c(&quot;white&quot;, &quot;orange&quot;, &quot;red&quot;), space=&quot;rgb&quot;)
 col.ramp=col.palette(length(seq(0,1,0.2)))

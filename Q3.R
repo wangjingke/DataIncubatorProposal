@@ -52,8 +52,10 @@ lazipdem$rest_pt=100*lazipdem$NewRest2015/lazipdem$ActRest
 lazipdem$rest_pt=ifelse(is.na(lazipdem$rest_pt), 0, lazipdem$rest_pt)
 lazipdem$NewRest2015=ifelse(is.na(lazipdem$NewRest2015), 0, lazipdem$NewRest2015)
 
+# creating regressive correlation across adjacent regions
 rook=poly2nb(lazipdem, queen=FALSE)
 rook.w=nb2listw(rook)
+# Moran's I test
 moranRest.rook=moran.test(lazipdem$rest_pt, rook.w)
 moranRest.rook
 png("Morans Scatterplot.png", width=1600, height=600)
@@ -76,6 +78,7 @@ lazipdem$hispanic_pt=ifelse(is.na(lazipdem$hispanic_pt),0, lazipdem$hispanic_pt)
 lazipdem$asian_pt=100*lazipdem$ASIAN/lazipdem$POP2010b
 lazipdem$asian_pt=ifelse(is.na(lazipdem$asian_pt),0, lazipdem$asian_pt)
 
+# auto regressive model
 queen=poly2nb(lazipdem, queen=TRUE)
 col.palette=colorRampPalette(c("white", "orange", "red"), space="rgb")
 col.ramp=col.palette(length(seq(0,1,0.2)))
